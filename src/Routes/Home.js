@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import Todo from "../components/Todo";
-import { addtodo, deltodo } from "../store";
+import { addtodo } from "../store";
 
 function Home(props) {
   console.log(props.state);
