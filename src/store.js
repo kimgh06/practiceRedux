@@ -1,8 +1,5 @@
 import { createStore } from "redux";
-import { createAction, createReducer } from "@reduxjs/toolkit";
-
-export const addtodo = createAction("add");
-export const deltodo = createAction("del");
+import { configureStore, createAction, createReducer, createSlice } from "@reduxjs/toolkit";
 
 // const reducer = (state = [], action) => {
 //   switch (action.type) {
@@ -15,13 +12,26 @@ export const deltodo = createAction("del");
 //   }
 // }
 
-const reducer = createReducer([], {
-  [addtodo]: (s, a) => {
-    s.push({ text: a.payload, id: Date.now() })
-  },
-  [deltodo]: (s, a) => s.filter(e => e.id !== a.payload),
-});
+// const reducer = createReducer([], {
+//   [addtodo]: (s, a) => {
+//     s.unshift({ text: a.payload, id: Date.now() })
+//   },
+//   [deltodo]: (s, a) => s.filter(e => e.id !== a.payload),
+// }); 
 
-const store = createStore(reducer);
+const slice = createSlice({
+  name: 'slice',
+  initialState: [],
+  reducers: {
+    addtodo: (s, a) => {
+      s.unshift({ text: a.payload, id: Date.now() })
+    },
+    deltodo: (s, a) => s.filter(e => e.id !== a.payload),
+  }
+})
+console.log(slice.reducer);
 
-export default store;
+export const { addtodo, deltodo } = slice.actions;
+
+
+export default configureStore({ reducer: slice.reducer });
